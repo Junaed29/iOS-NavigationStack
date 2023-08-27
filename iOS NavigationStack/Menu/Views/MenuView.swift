@@ -9,19 +9,19 @@ import SwiftUI
 
 struct MenuView: View {
     
-    @State private var path: NavigationPath = NavigationPath()
     @StateObject private var cartManager = ShoppingCartManager()
+    @StateObject private var routeManager = RouteManager()
     
     var body: some View {
         
-        NavigationStack(path: $path) {
+        NavigationStack(path: $routeManager.routes) {
             
             List {
                 
                 Section("Foods") {
                     ForEach(foods) { food in
                         
-                        NavigationLink(value: food) {
+                        NavigationLink(value: Route.menuItem(item: food)) {
                             MenuItemView(item: food)
                         }
                     }
@@ -30,7 +30,7 @@ struct MenuView: View {
                 Section("Drinks") {
                     ForEach(drinks) { drink in
                         
-                        NavigationLink(value: drink) {
+                        NavigationLink(value: Route.menuItem(item: drink)) {
                             MenuItemView(item: drink)
                         }
                     }
@@ -39,7 +39,7 @@ struct MenuView: View {
                 Section("Desserts") {
                     ForEach(desserts) { dessert in
                         
-                        NavigationLink(value: dessert) {
+                        NavigationLink(value: Route.menuItem(item: dessert)) {
                             MenuItemView(item: dessert)
                         }
                     }
@@ -53,15 +53,8 @@ struct MenuView: View {
                 }
             }
             .navigationTitle("Menu")
-            .navigationDestination(for: Food.self) { item in
-                FoodDetailView(food: item)
-            }
-            .navigationDestination(for: Drink.self) { item in
-                DrinkDetailView(drink: item)
-            }
-            .navigationDestination(for: Dessert.self) { item in
-                DessertDetailView(dessert: item)
-            }
+            .navigationDestination(for: Route.self) { $0 }
+            
         }
         .environmentObject(cartManager)
     }

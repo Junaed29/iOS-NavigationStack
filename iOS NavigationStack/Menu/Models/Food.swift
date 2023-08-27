@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-protocol MenuItem: Identifiable, Hashable {
+protocol MenuItem: Identifiable{
     var id: String { get }
     var name: String { get }
     var title: String { get }
@@ -331,12 +331,12 @@ let desserts: [Dessert] = [
             ])
 ]
 
-struct Ingredient: Hashable {
+struct Ingredient {
     let name: String
     let quantity: Double
 }
 
-struct Allergie: Hashable {
+struct Allergie {
     let name: String
 }
 

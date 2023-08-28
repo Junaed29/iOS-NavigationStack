@@ -11,6 +11,7 @@ import MapKit
 struct LocationMapView: View {
     
     let location: Location
+    @EnvironmentObject private var routeManager: RouteManager
     
     var body: some View {
         Map(coordinateRegion: .constant(.init(center: .init(latitude: location.lat,
@@ -30,12 +31,12 @@ struct LocationMapView: View {
                     
                     Group {
                         Button("Back to Menu") {
-                            // TODO: Handle Menu Navigation
+                            routeManager.reset() 
                         }
 
                         
                         Button("Back to Locations") {
-                            // TODO: Handle Menu Navigation
+                            routeManager.goBack()
                         }
 
                     }
@@ -51,6 +52,7 @@ struct LocationMapView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             LocationMapView(location: foods[2].locations![0])
+                .environmentObject(RouteManager())
         }
     }
 }

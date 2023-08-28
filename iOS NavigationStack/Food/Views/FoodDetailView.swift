@@ -53,13 +53,10 @@ struct FoodDetailView: View {
                 }
             }
             
-            if food.locations?.isEmpty == false {
-                
+            if let locations = food.locations{
                 Section("Locations") {
-                    
-                    if let locationsCount = food.locations?.count {
-                        let countVw = Text("x\(locationsCount)").font(.footnote).bold()
-                        Text("\(countVw) Locations")
+                    Button("See all locations") {
+                        routeManager.push(to: .locations(places: locations))
                     }
                 }
             }

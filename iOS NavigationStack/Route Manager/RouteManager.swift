@@ -21,5 +21,9 @@ final class RouteManager: ObservableObject {
     func reset(){
         routes = []
     }
+    
+    func goBack(){
+        _ = routes.popLast()
+    }
 }
 

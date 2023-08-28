@@ -47,8 +47,8 @@ struct MenuView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
-                    CartButton(count: cartManager.items.count) {
-                        
+                    CartButton(count: cartManager.getGroupedCart().count) {
+                        routeManager.push(to: .cart)
                     }
                 }
             }
@@ -57,6 +57,7 @@ struct MenuView: View {
             
         }
         .environmentObject(cartManager)
+        .environmentObject(routeManager)
     }
 }
 
@@ -64,5 +65,6 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         MenuView()
             .environmentObject(ShoppingCartManager())
+            .environmentObject(RouteManager())
     }
 }

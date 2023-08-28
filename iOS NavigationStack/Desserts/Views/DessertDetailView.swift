@@ -10,6 +10,7 @@ import SwiftUI
 struct DessertDetailView: View {
     
     @EnvironmentObject private var cartManager: ShoppingCartManager
+    @EnvironmentObject private var routeManager: RouteManager
     let dessert: Dessert
     
     var body: some View {
@@ -36,14 +37,18 @@ struct DessertDetailView: View {
                 
                 Section("Dietry") {
                     
-                    if let ingredientsCount = dessert.ingredients?.count {
-                        let countVw = Text("x\(ingredientsCount)").font(.footnote).bold()
-                        Text("\(countVw) Ingredients")
+                    if let ingredients = dessert.ingredients {
+                        NavigationLink(value: Route.ingredients(items: ingredients)) {
+                            let countVw = Text("x\(ingredients.count)").font(.footnote).bold()
+                            Text("\(countVw) Ingredients")
+                        }
                     }
                     
-                    if let allergiesCount = dessert.allergies?.count {
-                        let countVw = Text("x\(allergiesCount)").font(.footnote).bold()
-                        Text("\(countVw) Allergies")
+                    if let allergies = dessert.allergies {
+                        NavigationLink(value: Route.allergies(item: allergies)) {
+                            let countVw = Text("x\(allergies.count)").font(.footnote).bold()
+                            Text("\(countVw) Allergies")
+                        }
                     }
                 }
             }
@@ -63,6 +68,7 @@ struct DessertDetailView: View {
             Section {
                 Button {
                     cartManager.add(dessert)
+                    routeManager.reset()
                 } label: {
                     Label("Add to cart", systemImage: "cart")
                         .symbolVariant(.fill)
@@ -80,6 +86,7 @@ struct DessertDetailView_Previews: PreviewProvider {
             
             DessertDetailView(dessert: desserts[0])
                 .environmentObject(ShoppingCartManager())
+                .environmentObject(RouteManager())
         }
     }
 }

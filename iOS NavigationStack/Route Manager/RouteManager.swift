@@ -11,6 +11,15 @@ import SwiftUI
 
 
 final class RouteManager: ObservableObject {
-    @Published var routes = NavigationPath()
+    @Published var routes = [Route]()
+    
+    func push(to screen: Route){
+        routes.append(screen)
+    }
+    
+    
+    func reset(){
+        routes = []
+    }
 }
 

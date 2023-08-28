@@ -331,12 +331,12 @@ let desserts: [Dessert] = [
             ])
 ]
 
-struct Ingredient {
+struct Ingredient: Hashable {
     let name: String
     let quantity: Double
 }
 
-struct Allergie {
+struct Allergie: Hashable {
     let name: String
 }
 
